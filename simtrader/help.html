@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+
+		<meta charset="UTF-8" />
+		<meta name="robots" content="noindex" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>Sim Trader Help</title>
+
+		<!-- Semantic-UI -->
+		<link rel="stylesheet" type="text/css" href="../bower_components/semantic/dist/semantic.min.css">
+
+		<!-- Fonts -->
+		<!--<link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>-->
+		<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+		<!-- Styles -->
+		<style type="text/css">
+			html {
+				overflow: hidden;
+			}
+			
+			html,
+			body {
+				/*background-color: #3d3d3d;*/
+				/*background-color: #0e2f44;*/
+				/*background-color: #002030;*/
+				background-color: #1B1C1D;
+				color: #F0F0F0;
+				font-family: "Roboto", "Tahoma", "Verdana", "Arial", "sans-serif";
+				width: 100%;
+				height: 100%;
+			}
+			
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			p {
+				margin: 0px;
+			}
+			
+			.card {
+				background-color: #1B1C1D;
+				color: #1B1C1D;
+				text-align: justify;
+			}
+
+			#chart_canvas {
+				/*
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				display: block;
+				*/
+				/*background-color: #002030;*/
+				background-color: #1B1C1D;
+				color: #fff;
+			}
+		</style>
+
+	</head>
+
+	<body>
+
+		<div class="ui top attached inverted menu">
+
+			<a class="item" id="main-menu-button">
+				<h1>SimTrader Help</h1>
+			</a>
+
+			<a class="item" title="Back to Game" href="index.html">
+				<h3 id="Back_To_Game">Back To Game</h3>
+			</a>
+
+			<a class="item" title="Contact" href="//home.liquicode.com/">
+				<h3 id="Back_To_Game">Contact</h3>
+			</a>
+
+		</div>
+
+
+		<!--<table width="90%">-->
+		<!--	<tr>-->
+		<!--		<td width="100%">-->
+		<!--			<h1>Sim Trader Help</h1>-->
+		<!--		</td>-->
+		<!--		<td>-->
+		<!--			[<a href="index.html">Game</a>]-->
+		<!--		</td>-->
+		<!--		<td>-->
+		<!--			[<a href="//home.liquicode.com/">Contact</a>]-->
+		<!--		</td>-->
+		<!--	</tr>-->
+		<!--</table>-->
+		<hr>
+
+		<div class="ui inverted raised segment">
+
+			<h1 class="ui header">SimTrader</h1>
+			
+			<p></p>
+			
+			<div class="ui cards">
+
+				<div class="ui card">
+					<div class="content">
+						<div class="header">Overview</div>
+					</div>
+					<div class="content">
+						<p>SimTrader is a browser based market trading simulation game.</p>
+						<p>It uses real historical market data to provide a simulated trading environment.</p>
+					</div>
+					<div class="content">
+						<p>The market is displayed as 1 minute <a href="http://stockcharts.com/school/doku.php?id=chart_school:chart_analysis:introduction_to_candlesticks" target="_blank">Candlestick Chart</a>.</p>
+						<p>Market Volume is displayed as a series of bars along the bottom of the chart.</p>
+					</div>
+				</div>
+
+				<div class="ui card">
+					<div class="content">
+						<div class="header">Clock</div>
+					</div>
+					<div class="content">
+						<p>After SimTrader finished loading, click the 'Ready!' button to start the simulation.</p>
+						<p>Click the clock while it is running to pause the simulation.</p>
+						<p>Click it again to resume the simulation.</p>
+					</div>
+					<div class="content">
+						<p>You can change the speed of the simulation to run faster or slower.</p>
+						<p>Use the left arrow button, located under the clock, to slow the simulation.</p>
+						<p>Use the right arrow button, located under the clock, to speed up the simulation.</p>
+					</div>
+				</div>
+
+				<div class="ui card">
+					<div class="content">
+						<div class="header">Trading</div>
+					</div>
+					<div class="content">
+						<p>While the simulation is running, you can buy and sell the market.</p>
+						<p>The green right arrow button will buy a single unit.</p>
+						<p>The red left arrow button will sell a single unit.</p>
+						<p>The yellow button will flatten your position.</p>
+					</div>
+					<div class="content">
+						<p>Buy when the price of the market is low and sell when the market price is high.</p>
+					</div>
+				</div>
+
+			</div>
+			
+		</div>
+
+
+
+
+	</body>
+
+</html>

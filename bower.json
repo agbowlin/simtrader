@@ -1,0 +1,13 @@
+{
+	  "name"			:	"simtrader"
+	, "version"			:	"v0.01.000"
+	, "dependencies"	:
+	{
+		  "jquery"					:	">=2.2.1"
+		, "jeasyui"					:	">=1.4.4"
+		, "semantic"				:	">=2.1.8"
+		, "canvas-objects"			:	""
+	}
+	, "private"			:	true
+}
+

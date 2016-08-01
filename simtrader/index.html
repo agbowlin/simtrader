@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+
+		<meta charset="UTF-8" />
+		<meta name="robots" content="noindex" />
+		<!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+
+		<title>SimTrader</title>
+
+		<!-- Semantic-UI -->
+		<link rel="stylesheet" type="text/css" href="../bower_components/semantic/dist/semantic.min.css">
+
+		<!-- Fonts -->
+		<!--<link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>-->
+		<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+		<!-- Styles -->
+		<style type="text/css">
+			html {
+				overflow: hidden;
+			}
+			
+			html,
+			body {
+				/*background-color: #3d3d3d;*/
+				/*background-color: #0e2f44;*/
+				background-color: #002030;
+				/*color: #fff;*/
+				font-family: "Roboto", "Tahoma", "Verdana", "Arial", "sans-serif";
+				width: 100%;
+				height: 100%;
+			}
+			
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			p {
+				margin: 0px;
+			}
+			
+			#chart_canvas {
+				/*
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				display: block;
+				*/
+				/*background-color: #002030;*/
+				background-color: #1B1C1D;
+				color: #fff;
+			}
+		</style>
+
+	</head>
+
+	<body>
+
+
+		<!--
+		------------------------------------------
+			Page Header / Menu
+		------------------------------------------
+		-->
+
+
+		<div class="ui top attached inverted menu">
+
+			<!--Main Menu-->
+			<a class="item" id="main-menu-button">
+				<i class="big sidebar icon"></i>
+				<h1>SimTrader</h1>
+			</a>
+
+			<!--Account Display-->
+			<a class="item" title="Account Equity">
+				<h3 id="account_display">-</h3>
+			</a>
+
+			<!--Trade Display-->
+			<div>
+				<table>
+					<tr>
+						<td width="150px" colspan="3" style="text-align:center">
+							<a id="trade_display" class="ui inverted centered huge black label item" title="Postion.">
+								-
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="ui red inverted icon button" id="game_trade_sell" title="Sell: Sell a unit.">
+								<i class="ui chevron left icon"></i>
+							</div>
+						</td>
+						<td>
+							<div class="ui yellow inverted icon button" id="game_trade_flatten" title="Flatten: Close all trades.">
+								<i class="ui exchange icon"></i>
+							</div>
+						</td>
+						<td>
+							<div class="ui green inverted icon button" id="game_trade_buy" title="Buy: Buy a unit.">
+								<i class="ui chevron right icon"></i>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<!--Clock Display-->
+			<div>
+				<table>
+					<tr>
+						<td width="100px" colspan="3" style="text-align:center">
+							<a id="clock_display" class="ui inverted centered huge black label item" title="Simulation Clock. Click to start, pause, and restart the simulation.">
+								initializing ...
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="ui inverted icon button" id="game_speed_slower" title="Decrease Simulation Speed">
+								<i class="ui chevron left icon"></i>
+							</div>
+						</td>
+						<td width="100px" style="text-align:center">
+							<p class="ui inverted large black label" id="game_speed">1.00X</p>
+						</td>
+						<td>
+							<div class="ui inverted icon button" id="game_speed_faster" title="Increase Simulation Speed">
+								<i class="ui chevron right icon"></i>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<!--Debug Display-->
+			<div>
+				<table>
+					<tr>
+						<td style="text-align:right">
+							<p class="ui inverted large black label">FPS :</p>
+						</td>
+						<td style="text-align:center">
+							<p class="ui inverted large black label" id="FPS"></p>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+		</div>
+
+
+		<!--
+		------------------------------------------
+			Application Content
+		------------------------------------------
+		-->
+
+		<canvas id="chart_canvas" resize>
+			HTML5 Canvas is not supported by your browser :(
+		</canvas>
+
+
+		<!--
+		------------------------------------------
+			Main Menu
+		------------------------------------------
+		-->
+
+
+		<div class="ui small basic modal" id="main-menu-modal">
+			<!--<i class="close icon"></i>-->
+
+			<div class="ui header">
+				SimTrader
+			</div>
+
+			<div class="ui content">
+
+				<div class="ui vertical inverted menu" id="main-menu">
+
+					<!-- Main Menu -->
+
+					<div class="ui inverted blue segment item">
+						<i class="sidebar icon"></i> SimTrader
+					</div>
+
+					<a class="item" id="game_new_session">
+						<i class="yellow undo icon"></i> New Session
+					</a>
+
+					<a class="item" id="game_account_reset">
+						<i class="yellow undo icon"></i> Reset Account
+					</a>
+
+					<a class="item" id="menu-login">
+						<i class="yellow sign in icon"></i> Login/Signup
+					</a>
+
+					<!-- Help Menu -->
+
+					<div class="ui inverted blue segment item">
+						<i class="sidebar icon"></i> Help
+					</div>
+
+					<a class="item" href="help.html">
+						<i class="yellow help icon"></i> SimTrader Help
+					</a>
+
+					<a class="item" href="../index.html">
+						<i class="yellow external share icon"></i> Web Games
+					</a>
+
+					<a class="item" href="http://home.liquicode.com/">
+						<i class="yellow mail icon"></i> liquicode/Contact
+					</a>
+
+				</div>
+			</div>
+		</div>
+
+
+		<!--
+		------------------------------------------
+			Login Modal
+		------------------------------------------
+		-->
+
+		<div class="ui basic modal" id="login-modal">
+
+			<i class="close icon"></i>
+
+			<div class="ui header">
+				Login
+			</div>
+
+			<div class="ui inverted content">
+
+				<div class="ui inverted form">
+
+					<div class="field">
+						<label>Email Address</label>
+						<div class="ui left icon input">
+							<input type="email" placeholder="Email" id="login-email">
+							<i class="mail icon"></i>
+						</div>
+					</div>
+
+					<div class="field">
+						<label>Password</label>
+						<div class="ui left icon input">
+							<input type="password" id="login-password">
+							<i class="lock icon"></i>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="ui actions">
+
+				<div class="ui blue labeled icon submit button" id="login-button">
+					<i class="sign in icon"></i> Login
+				</div>
+
+				<div class="ui green labeled icon button" id="signup-button">
+					<i class="signup icon"></i> Signup
+				</div>
+
+				<div class="ui red labeled icon button" id="login-cancel-button">
+					<i class="cancel icon"></i> Cancel
+				</div>
+
+			</div>
+
+		</div>
+
+
+		<!--
+		------------------------------------------
+			MessageBox
+		------------------------------------------
+		-->
+
+		<div class="ui modal" id="messagebox-modal">
+			<i class="close icon"></i>
+			<div class="ui header">
+				<p id="messagebox-title"></p>
+			</div>
+			<div class="ui content">
+				<p id="messagebox-body"></p>
+				<p id="messagebox-error"></p>
+			</div>
+		</div>
+		</div>
+
+
+		<!--
+		------------------------------------------
+			Registration
+		------------------------------------------
+		-->
+
+
+		<!--
+		<div id="template_register">
+
+			<div class="row vert-offset-top-30"></div>
+			<div class="col-md-2"></div>
+
+			<div class="col-md-8">
+
+				<div class="login">
+					<form>
+						<div class="form-group form-control-size">
+							<input type="text" class="form-control" id="register_firstname" placeholder="First Name">
+						</div>
+						<div class="form-group form-control-size">
+							<input type="text" class="form-control" id="register_lastname" placeholder="Last Name">
+						</div>
+						<div class="form-group form-control-size">
+							<input type="email" class="form-control" id="register_email" placeholder="Email">
+						</div>
+						<div class="form-group form-control-size">
+							<input type="password" class="form-control" id="register_password" placeholder="Password">
+						</div>
+						<div class="form-group form-control-size">
+							<button id="register_user" class="btn btn-default login-btn-signin" type="button">Register User</button>
+						</div>
+						<div class="form-group form-control-size">
+							<button id="register_cancel" class="btn btn-default login-btn-cancel" type="button">Cancel</button>
+						</div>
+					</form>
+				</div>
+
+			</div>
+			<div class="col-md-2"></div>
+
+		</div>
+		-->
+
+
+		<!--
+		------------------------------------------
+			Message Box
+		------------------------------------------
+		-->
+
+		<!--
+		<div class="modal fade" id="messageBox">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="modal_title"></h4>
+					</div>
+					<div class="modal-body">
+						<br>
+						<p id="modal_body"></p>
+						<br>
+						<div>
+							<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseError" aria-expanded="false" aria-controls="collapseError">
+								<h6>Show/hide full message</h6>
+							</button>
+							<div class="collapse" id="collapseError">
+								<div class="well" id="errorMsg"></div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		-->
+
+
+	</body>
+
+</html>
+
+
+<!-- JQuery -->
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+
+
+<!-- Semantic-UI -->
+<script src="../bower_components/semantic/dist/semantic.min.js"></script>
+
+
+<!-- canvas-toolkit -->
+<script>
+	var ctk = {};
+</script>
+<!--<script src="../bower_components/canvas-objects.min.js"></script>-->
+<script src="../bower_components/canvas-objects/ctk/util/AreaMap.js"></script>
+<script src="../bower_components/canvas-objects/ctk/util/Canvas.js"></script>
+<script src="../bower_components/canvas-objects/ctk/util/ProcessLoop.js"></script>
+<script src="../bower_components/canvas-objects/ctk/draw/Draw.js"></script>
+<script src="../bower_components/canvas-objects/ctk/draw/Rect.js"></script>
+<script src="../bower_components/canvas-objects/ctk/draw/Border.js"></script>
+<script src="../bower_components/canvas-objects/ctk/draw/Style.js"></script>
+<script src="../bower_components/canvas-objects/ctk/draw/Item.js"></script>
+
+<script src="src/Instrument.js"></script>
+<script src="src/AccountManager.js"></script>
+<script src="src/ChartArea.js"></script>
+<script src="src/ChartBars.js"></script>
+<script src="src/ChartGame5.js"></script>
+<script src="src/PageView.js"></script>
+
+
+<!--<script src="/dreamfactory/DreamFactory.js"></script>-->
+
+
+<!-- App Files -->
+<script src="src/app-utils.js"></script>
+<script src="src/app-main.js"></script>
+
+
+<script>
+	/*
+		global InitializeUI
+		*/
+	$(document).ready(function()
+	{
+		InitializeUI();
+	});
+</script>
